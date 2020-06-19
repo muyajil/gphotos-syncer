@@ -15,3 +15,18 @@ The following volumes should be mounted:
 
 - `/download`: The photos and videos will be downloaded here
 - `/config`: Here the database and configs will be stored
+
+## Docker Compose example
+
+```
+gphotos-syncer:
+    image: muyajil/gphotos-syncer:latest
+    restart: unless-stopped
+    user: 1000:1000
+    volumes:
+      - ${CONFIG_PATH}:/config
+      - ${PHOTOS_PATH}:/download
+    environment:
+      SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+```
