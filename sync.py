@@ -2,21 +2,23 @@ import subprocess
 import requests
 import time
 import os
+import json
 
 SYNC_COMMAND = [
     "gphotos-sync",
     "--omit-album-date",
     "--logfile",
-    "/last_run_debug.log",
+    "/config/last_run_debug.log",
     "--log-level",
     "info",
     "--db-path",
     "/config",
     "--secret",
-    "/client_secret.json"
+    "/config/client_secret.json",
     "/download"]
 
 client_secret = os.environ.get('CLIENT_SECRET')
+print("Client Secret:", client_secret)
 with open("/config/client_secret.json", "w") as f:
     f.write(client_secret)
 
@@ -32,8 +34,8 @@ def send_message_to_slack(message, markdown=True):
 
 while True:
     try:
-        result = subprocess.call(SYNC_COMMAND)
-        result.check_return_code()
+        result = subprocess.run(SYNC_COMMAND)
+        result.check_returncode()
     except subprocess.CalledProcessError:
         send_message_to_slack('There was a problem with the Google Photos Sync')
     time.sleep(3600)
