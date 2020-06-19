@@ -17,7 +17,7 @@ SYNC_COMMAND = [
     "/download"]
 
 client_secret = os.environ.get('CLIENT_SECRET')
-with open("/client_secret.json", "w") as f:
+with open("/config/client_secret.json", "w") as f:
     f.write(client_secret)
 
 def send_message_to_slack(message, markdown=True):
