@@ -36,6 +36,6 @@ while True:
     try:
         result = subprocess.run(SYNC_COMMAND)
         result.check_returncode()
-    except subprocess.CalledProcessError:
+    except:
         send_message_to_slack('There was a problem with the Google Photos Sync')
     time.sleep(4*3600)
